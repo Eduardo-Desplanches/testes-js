@@ -1,0 +1,3 @@
+Entendo como funciona o Fetch 
+
+e trazendo para o html 
