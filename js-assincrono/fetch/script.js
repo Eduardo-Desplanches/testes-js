@@ -1,49 +1,56 @@
-//fetch é uma promise
-const cep = fetch('https://viacep.com.br/ws/05767340/json/');
+const imagem = fetch("./produtos1.jpg");
 
-const doc = fetch("./doc.txt");
+imagem
+  .then((resolucao) => resolucao.blob())
+  .then((body) => {
+    const blobUrl = URL.createObjectURL(body);
+    const imagemDom = document.querySelector("img");
+    imagemDom.src = blobUrl;
+  });
 
-// formas de continuar com then e return
-
-// doc.then((resolucao) => {
-//   resolucao.text().then((body)=>{
-//     const conteudo = document.querySelector(".conteudo");
-//  conteudo.innerText = body;
+// const conteudo = document.querySelector(".conteudo");
+// fetch("https://viacep.com.br/ws/01001000/json/").then((response) => {
+//   const cloneResponse = response.clone();
+//   response.json().then((json) => {
+//     console.log(json);
+//   });
+//   cloneResponse.text().then((text) => {
+//     console.log(text);
 //   });
 // });
 
-// doc.then(resolucao =>{
-//   return resolucao.text();
-// }).then((body)=>{
-//   const conteudo = document.querySelector(".conteudo");
-//   conteudo.innerText = body;
-// })
+const conteudo1 = document.querySelector(".conteudo1");
+fetch("https://viacep.com.br/ws/01001000/json/")
+  .then((r) => {
+    const r2 = r.clone();
+    r.text().then((text) => {
+      console.log(text);
+    });
+    r2.json().then((json) => {
+      console.log(json);
+    });
+    console.log(r);
+  })
+  .then((body) => {
+    console.log(body);
+  });
 
-cep.then(resolucao => resolucao.json())
-.then(body=>{
-  console.log(body);
-  const conteudo = document.querySelector('.conteudo');
-  conteudo.innerText = body.logradouro
+const cep = fetch("https://viacep.com.br/ws/01001000/json/");
+
+cep.then((response) => {
+  response.headers.forEach(console.log);
 });
 
-const background = fetch('./style.css');
+const cep1 = fetch("./docs.txt");
 
-background.then(resolucao => resolucao.text())
-.then(body=>{
-  const conteudo1 = document.querySelector('.conteudo1');
-  const style = document.createElement('style');
-  style.innerHTML = body
-  conteudo1.appendChild(style);
-})
+cep1.then((response) => {
+  console.log(response.status);
+  console.log(response.url);
+  console.log(response.type); // basic próprio servidor, cors requisão para outro servidor
+  if (response.status === 404) {
+    console.log("Página não existe");
+  }
+});
 
-const sobre = fetch('./sobre.html');
-
-const div = document.createElement('div');
-
-sobre.then(resolucao => resolucao.text())
-.then(body=>{
-  div.innerHTML = body;
-  const titulo = div.querySelector("h1");
-  document.querySelector('.conteudo1').innerText = titulo.innerText;
-  console.log(titulo);
-})
+// const array = ['item 1' , 'item 2 ', 'item 3'];
+// array.forEach(console.log);
